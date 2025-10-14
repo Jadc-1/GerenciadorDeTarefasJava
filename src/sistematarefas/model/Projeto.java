@@ -4,21 +4,32 @@ import java.time.LocalDate;
 
 public class Projeto {
     private int codigoProjeto;
-    private string nome;
-    private string descricao;
-    private LocalDate datainicio;
-    private LocalDate datatermino;
-    private string statusprojeto;
+    private String nome;
+    private String descricao;
+    private LocalDate dataInicio;
+    private LocalDate dataTermino;
+    private String statusProjeto;
     private char prioridade;
     private int idGestor;
 
-    public Projeto(int codigoProjeto, string nome, string descricao, LocalDate datainicio, LocalDate datatermino, string statusprojeto, char prioridade, int idGestor){
+    public Projeto(int codigoProjeto, String nome, String descricao, String statusProjeto, char prioridade, int idGestor){
         this.codigoProjeto = codigoProjeto;
         this.nome = nome;
         this.descricao = descricao;
         this.dataInicio = LocalDate.now();
         this.dataTermino = null;
-        this.statusProjeto = statusprojeto;
+        this.statusProjeto = statusProjeto;
+        this.prioridade = prioridade;
+        this.idGestor = idGestor;
+    }
+
+    public Projeto(int codigoProjeto, String nome, String descricao, LocalDate dataTermino, String statusProjeto, char prioridade, int idGestor){
+        this.codigoProjeto = codigoProjeto;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.dataInicio = LocalDate.now();
+        this.dataTermino = dataTermino;
+        this.statusProjeto = statusProjeto;
         this.prioridade = prioridade;
         this.idGestor = idGestor;
     }
@@ -27,11 +38,11 @@ public class Projeto {
 
     public void setCodigoProjeto(int codigoProjeto) { this.codigoProjeto = codigoProjeto; }
 
-    public string getNome() {return nome;}
+    public String getNome() {return nome;}
 
-    public void setNome(string nome) {this.nome = nome;}
+    public void setNome(String nome) {this.nome = nome;}
 
-    public string getDescricao() {return descricao;}
+    public String getDescricao() {return descricao;}
 
     public LocalDate getDataInicio() {return dataInicio;}
 
@@ -40,6 +51,10 @@ public class Projeto {
     public void setDataTermino(LocalDate dataTermino) {this.dataTermino = dataTermino;}
 
     public void finalizarProjeto() {this.dataTermino = LocalDate.now();}
+
+    public String getStatusProjeto() {return statusProjeto;}
+
+    public void setStatusProjeto(String statusProjeto) {this.statusProjeto = statusProjeto;}
 
     public char getPrioridade() { return prioridade;}
 
