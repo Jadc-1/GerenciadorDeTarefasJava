@@ -5,7 +5,6 @@ import java.time.LocalDate;
 public class Funcionario extends Usuario {
     private int idFuncionario;
     private double salario;
-    private int idUsuario;
 
     public Funcionario(int idFuncionario, double salario, int idUsuario, String nome, String email, String telefone, LocalDate dataCadastro, Endereco endereco, boolean ativo, Departamento departamento)
     {
@@ -17,6 +16,4 @@ public class Funcionario extends Usuario {
     public void setIdFuncionario(int idFuncionario) { this.idFuncionario = idFuncionario; }
     public double getSalario() { return salario; }
     public void setSalario(double salario) { this.salario = salario; }
-    public int getIdUsuario() { return idUsuario; }
-    public void setIdUsuario(int idUsuario) { this.idUsuario = idUsuario; }
 }
