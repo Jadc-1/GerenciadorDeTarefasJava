@@ -7,6 +7,15 @@ public class Endereco {
     private String cidade;
     private String estado;
 
+    public Endereco(int idEndereco, String rua, String numero, String cidade, String estado)
+    {
+        this.idEndereco = idEndereco;
+        this.rua = rua;
+        this.numero = numero;
+        this.cidade = cidade;
+        this.estado = estado;
+    }
+
     public int getIdEndereco() {return idEndereco;}
     public void setIdEndereco(int idEndereco) {this.idEndereco = idEndereco; }
     public String getRua() {return rua;}
