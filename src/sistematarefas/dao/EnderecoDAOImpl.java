@@ -6,6 +6,8 @@ import sistematarefas.utils.Database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class EnderecoDAOImpl implements EnderecoDAO{
@@ -63,6 +65,25 @@ public class EnderecoDAOImpl implements EnderecoDAO{
                 return endereco;
             }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Endereco> buscarTodos()
+    {
+        List<Endereco> enderecos = new ArrayList<>();
+        String sql = "SELECT * FROM endereco";
+        try(Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+            {
+                Endereco endereco = new Endereco(rs.getInt("id_endereco"), rs.getString("rua"), rs.getString("numero"), rs.getString("cidade"), rs.getString("estado"));
+                enderecos.add(endereco);
+            }
+            return enderecos;
         } catch (Exception e) {
             e.printStackTrace();
         }

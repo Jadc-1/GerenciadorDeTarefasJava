@@ -16,4 +16,13 @@ public class Funcionario extends Usuario {
     public void setIdFuncionario(int idFuncionario) { this.idFuncionario = idFuncionario; }
     public double getSalario() { return salario; }
     public void setSalario(double salario) { this.salario = salario; }
+
+    @Override
+    public String toString()
+        {
+        return "Funcionario{" +
+                "id_funcionario=" + idFuncionario +
+                ", salario=" + salario +
+                '}';
+        }
 }
