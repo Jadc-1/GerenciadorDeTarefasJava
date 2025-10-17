@@ -5,6 +5,8 @@ import sistematarefas.utils.Database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 
 public class EnderecoDAOImpl implements EnderecoDAO{
     @Override
@@ -22,21 +24,50 @@ public class EnderecoDAOImpl implements EnderecoDAO{
     }
     @Override
     public void atualizar(Endereco endereco){
-
+        String sql = "UPDATE endereco SET rua = ?, numero = ?, cidade = ?, estado = ? WHERE id_endereco = ?";
+        try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, endereco.getRua());
+            stmt.setString(2,endereco.getNumero());
+            stmt.setString(3,endereco.getCidade());
+            stmt.setString(4,endereco.getEstado());
+            stmt.setInt(5, endereco.getIdEndereco());
+            stmt.executeUpdate();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void deletar(Endereco endereco){
-
+    public void deletar(int codigoEndereco){
+        String sql = "DELETE FROM endereco WHERE id_endereco = ?";
+        try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+            stmt.setInt(1, codigoEndereco);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public Endereco buscarPorCodigo(int codigoEndereco){
+        String sql = "SELECT * FROM endereco WHERE id_endereco = ?";
+        try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+            stmt.setInt(1,codigoEndereco);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next())
+            {
+                Endereco endereco = new Endereco(rs.getInt("id_endereco"), rs.getString("rua"), rs.getString("numero"), rs.getString("cidade"), rs.getString("estado"));
+                return endereco;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
-    @Override
-    public Endereco buscarPorCep(String cep){
-        return null;
-    }
+
 }

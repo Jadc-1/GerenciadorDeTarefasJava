@@ -26,4 +26,15 @@ public class Endereco {
     public void setCidade(String cidade) {this.cidade = cidade;}
     public String getEstado() {return estado;}
     public void setEstado(String estado) {this.estado = estado;}
+
+    @Override
+    public String toString() {
+        return "Endereco{" +
+                "id_endereco=" + idEndereco +
+                ", rua='" + rua + '\'' +
+                ", numero='" + numero + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", estado='" + estado + '\'' +
+                '}';
+    }
 }
