@@ -1,19 +1,27 @@
-import sistematarefas.dao.EnderecoDAO;
-import sistematarefas.dao.EnderecoDAOImpl;
-import sistematarefas.dao.ProjetoDAO;
-import sistematarefas.dao.ProjetoDAOImpl;
+import sistematarefas.dao.*;
 import sistematarefas.model.Endereco;
+import sistematarefas.model.Funcionario;
+import sistematarefas.model.Gestor;
 import sistematarefas.model.Projeto;//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+
+import java.sql.SQLException;
+
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() {
     EnderecoDAO enderecoDAO = new EnderecoDAOImpl();
-    Endereco endereco = new Endereco(2, "Rua teste", "123", "São", "PR");
-
-
+    GestorDAO gestorDAO = new GestorDAOImpl() {
+    };
     try {
-        var enderecoString = enderecoDAO.buscarPorCodigo(1);
-        IO.println(enderecoString);
-    } catch (Exception e) {
-        e.printStackTrace();
+        var lista = gestorDAO.buscarTodos();
+        if(gestorDAO.buscarTodos().isEmpty())
+        {
+            IO.println("Nada cadastrado!");
+        }
+        for(Gestor gestor : lista)
+        {
+            IO.println(gestor.toString());
+        }
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
     }
 }

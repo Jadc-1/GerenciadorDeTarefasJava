@@ -85,14 +85,13 @@ public class FuncionarioDAOImpl implements FuncionarioDAO{
 
     public List<Funcionario> buscarTodos()
     {   List<Funcionario> funcionarios = new ArrayList<>();
-        String sql = "SELECT f.id_funcionario, u.nome, u.email, u.telefone, f.salario, u.data_cadastro, u.id_endereco, u.ativo. u.id_departamento, f.id_usuario" +
-                "FROM funcionario f" +
-                "INNER JOIN usuario u" +
-                "on f.id_usuario = u.id_usuario" +
-                "ORDER BY nome";
+        String sql = "SELECT f.id_funcionario, u.nome, u.email, u.telefone, f.salario, u.data_cadastro, u.id_endereco, u.ativo, u.id_departamento, f.id_usuario" +
+                " FROM funcionario f" +
+                " INNER JOIN usuario u" +
+                " on f.id_usuario = u.id_usuario" +
+                " ORDER BY nome";
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
         {
-            stmt.executeQuery(sql);
             ResultSet rs = stmt.executeQuery();
             while(rs.next())
             {
