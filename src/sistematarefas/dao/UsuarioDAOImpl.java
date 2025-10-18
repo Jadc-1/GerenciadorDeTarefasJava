@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
 
@@ -50,11 +52,11 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public void deletar(int idDepartamento) {
+    public void deletar(Usuario usuario) {
         String sql = "DELETE FROM usuario WHERE id_usuario = ?";
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
         {
-            stmt.setInt(1, idDepartamento);
+            stmt.setInt(1, usuario.getIdUsuario());
             stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,17 +64,54 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public Usuario buscarPorCodigo(int codigoUsuario){
+    public Usuario buscarPorCodigo(int idUsuario){
         String sql = "SELECT * FROM usuario WHERE id_usuario = ?";
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
         {
-            stmt.setInt(1, codigoUsuario);
+            stmt.setInt(1, idUsuario);
             ResultSet rs = stmt.executeQuery();
             if(rs.next())
             { //Na classe usuarioDAO temos o buscarPorCodigo que retorna o objeto, utilizamos o mesmo para pegar o id e retornar o objeto, fazemos o mesmo com departamento
-                Usuario usuario = new Usuario(rs.getInt("id_usuario"), rs.getString("nome"), rs.getString("email"), rs.getString("telefone"), rs.getDate("data_cadastro").toLocalDate(), new EnderecoDAOImpl().buscarPorCodigo(rs.getInt("id_endereco")), rs.getBoolean("ativo"), new DepartamentoDAOImpl().buscarPorCodigo(rs.getInt("id_departamento")));
-                return usuario;
+                return new Usuario(
+                        rs.getInt("id_usuario"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        rs.getDate("data_cadastro").toLocalDate(),
+                        new EnderecoDAOImpl().buscarPorCodigo(rs.getInt("id_endereco")),
+                        rs.getBoolean("ativo"),
+                        new DepartamentoDAOImpl().buscarPorCodigo(rs.getInt("id_departamento"))
+                );
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Usuario> buscarTodos()
+    {
+        String sql = "SELECT * FROM usuario";
+        try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+            List<Usuario> usuarios = new ArrayList<>();
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+            {
+                Usuario usuario = new Usuario(
+                        rs.getInt("id_usuario"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        rs.getDate("data_cadastro").toLocalDate(),
+                        new EnderecoDAOImpl().buscarPorCodigo(rs.getInt("id_endereco")),
+                        rs.getBoolean("ativo"),
+                        new DepartamentoDAOImpl().buscarPorCodigo(rs.getInt("id_departamento"))
+                );
+                usuarios.add(usuario);
+            }
+            return usuarios;
         } catch (Exception e) {
             e.printStackTrace();
         }

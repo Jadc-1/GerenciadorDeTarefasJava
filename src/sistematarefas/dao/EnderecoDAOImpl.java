@@ -41,11 +41,11 @@ public class EnderecoDAOImpl implements EnderecoDAO{
     }
 
     @Override
-    public void deletar(int codigoEndereco){
+    public void deletar(Endereco endereco){
         String sql = "DELETE FROM endereco WHERE id_endereco = ?";
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
         {
-            stmt.setInt(1, codigoEndereco);
+            stmt.setInt(1, endereco.getIdEndereco());
             stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,11 +53,11 @@ public class EnderecoDAOImpl implements EnderecoDAO{
     }
 
     @Override
-    public Endereco buscarPorCodigo(int codigoEndereco){
+    public Endereco buscarPorCodigo(int idEndereco){
         String sql = "SELECT * FROM endereco WHERE id_endereco = ?";
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
         {
-            stmt.setInt(1,codigoEndereco);
+            stmt.setInt(1,idEndereco);
             ResultSet rs = stmt.executeQuery();
             if(rs.next())
             {

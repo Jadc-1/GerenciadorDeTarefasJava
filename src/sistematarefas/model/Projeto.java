@@ -10,9 +10,9 @@ public class Projeto {
     private LocalDate dataTermino;
     private String statusProjeto;
     private char prioridade;
-    private int idGestor;
+    private Gestor gestor;
 
-    public Projeto(int codigoProjeto, String nome, String descricao, String statusProjeto, char prioridade, int idGestor){
+    public Projeto(int codigoProjeto, String nome, String descricao, String statusProjeto, char prioridade, Gestor gestor){
         this.codigoProjeto = codigoProjeto;
         this.nome = nome;
         this.descricao = descricao;
@@ -20,10 +20,10 @@ public class Projeto {
         this.dataTermino = null;
         this.statusProjeto = statusProjeto;
         this.prioridade = prioridade;
-        this.idGestor = idGestor;
+        this.gestor = gestor;
     }
 
-    public Projeto(int codigoProjeto, String nome, String descricao, LocalDate dataTermino, String statusProjeto, char prioridade, int idGestor){
+    public Projeto(int codigoProjeto, String nome, String descricao, LocalDate dataTermino, String statusProjeto, char prioridade, Gestor gestor){
         this.codigoProjeto = codigoProjeto;
         this.nome = nome;
         this.descricao = descricao;
@@ -31,7 +31,7 @@ public class Projeto {
         this.dataTermino = dataTermino;
         this.statusProjeto = statusProjeto;
         this.prioridade = prioridade;
-        this.idGestor = idGestor;
+        this.gestor = gestor;
     }
 
     public int getCodigoProjeto() { return codigoProjeto; }
@@ -44,9 +44,11 @@ public class Projeto {
 
     public String getDescricao() {return descricao;}
 
+    public void setDescricao(String descricao) {this.descricao = descricao;}
+
     public LocalDate getDataInicio() {return dataInicio;}
 
-    public LocalDate getDatatermino() {return dataTermino;}
+    public LocalDate getDataTermino() {return dataTermino;}
 
     public void setDataTermino(LocalDate dataTermino) {this.dataTermino = dataTermino;}
 
@@ -60,7 +62,7 @@ public class Projeto {
 
     public void setPrioridade(char prioridade) {this.prioridade = prioridade;}
 
-    public int getIdGestor() {return idGestor;}
+    public Gestor getGestor() {return gestor;}
 
-    public void setIdGestor(int idGestor) {this.idGestor = idGestor;}
+    public void setGestor(Gestor gestor) {this.gestor = gestor;}
 }

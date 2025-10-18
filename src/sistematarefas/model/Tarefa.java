@@ -9,29 +9,29 @@ public class Tarefa {
     private LocalDate dataInicio;
     private LocalDate dataTermino;
     private String statusTarefa;
-    private int idFuncionario;
-    private int idProjeto;
+    private Funcionario funcionario;
+    private Projeto projeto;
 
-    public Tarefa(int idTarefa, String titulo, String descricao, LocalDate dataInicio, LocalDate dataTermino, String statusTarefa, int idFuncionario, int idProjeto) {
+    public Tarefa(int idTarefa, String titulo, String descricao, LocalDate dataInicio, LocalDate dataTermino, String statusTarefa, Funcionario funcionario, Projeto projeto) {
         this.idTarefa = idTarefa;
         this.titulo = titulo;
         this.descricao = descricao;
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
         this.statusTarefa = statusTarefa;
-        this.idFuncionario = idFuncionario;
-        this.idProjeto = idProjeto;
+        this.funcionario = funcionario;
+        this.projeto = projeto;
     }
 
-    public Tarefa(int idTarefa, String titulo, String descricao, LocalDate dataInicio, String statusTarefa, int idFuncionario, int idProjeto) {
+    public Tarefa(int idTarefa, String titulo, String descricao, LocalDate dataInicio, String statusTarefa, Funcionario funcionario, Projeto projeto) {
         this.idTarefa = idTarefa;
         this.titulo = titulo;
         this.descricao = descricao;
         this.dataInicio = dataInicio;
         this.dataTermino = null;
         this.statusTarefa = statusTarefa;
-        this.idFuncionario = idFuncionario;
-        this.idProjeto = idProjeto;
+        this.funcionario = funcionario;
+        this.projeto = projeto;
     }
 
     public int getIdTarefa() { return idTarefa; }
@@ -44,4 +44,10 @@ public class Tarefa {
     public void setDataInicio(LocalDate dataInicio) { this.dataInicio = dataInicio; }
     public LocalDate getDataTermino() { return dataTermino; }
     public void setDataTermino(LocalDate dataTermino) { this.dataTermino = dataTermino; }
+    public String getStatusTarefa() { return statusTarefa; }
+    public void setStatusTarefa(String statusTarefa) { this.statusTarefa = statusTarefa; }
+    public Funcionario getFuncionario() { return funcionario; }
+    public void setFuncionario(Funcionario funcionario) { this.funcionario = funcionario; }
+    public Projeto getProjeto() { return projeto; }
+    public void setProjeto(Projeto projeto) { this.projeto = projeto; }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DepartamentoDAOImpl implements DepartamentoDAO{
     @Override
-    public void salvar(Departamento departamento){
+    public void salvar(Departamento departamento) {
         String sql = "INSERT INTO departamento (nomeDepartamento, ativo) VALUES (?,?)";
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
         {
@@ -43,21 +43,21 @@ public class DepartamentoDAOImpl implements DepartamentoDAO{
     }
 
     @Override
-    public void deletar(int codigoDepartamento){
+    public void deletar(Departamento departamento){
         String sql = "DELETE FROM departamento WHERE id_departamento = ?";
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
         {
-            stmt.setInt(1, codigoDepartamento);
+            stmt.setInt(1, departamento.getIdDepartamento());
             stmt.executeUpdate();
         } catch (Exception e) {}
     }
 
     @Override
-    public Departamento buscarPorCodigo(int codigoDepartamento){
+    public Departamento buscarPorCodigo(int idDepartamento){
         String sql = "SELECT * FROM departamento WHERE id_departamento = ?";
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
         {
-            stmt.setInt(1, codigoDepartamento);
+            stmt.setInt(1, idDepartamento);
             ResultSet rs = stmt.executeQuery();
             if(rs.next())
             {

@@ -9,6 +9,6 @@ public interface ProjetoDAO {
     void salvar(Projeto projeto) throws SQLException;
     void atualizar(Projeto projeto) throws SQLException;
     void deletar(Projeto projeto) throws SQLException;
-    Projeto buscarPorCodigo(int codigoProjeto) throws SQLException;
+    Projeto buscarPorCodigo(int idProjeto) throws SQLException;
     List<Projeto> buscarTodos() throws SQLException;
 }
