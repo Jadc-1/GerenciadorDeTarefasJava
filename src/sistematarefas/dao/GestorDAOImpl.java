@@ -21,6 +21,7 @@ public class GestorDAOImpl implements GestorDAO {
         {
             stmt.setInt(1, gestor.getIdGestor());
             stmt.setString(2, gestor.getSetor());
+            stmt.executeUpdate();
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -35,6 +36,7 @@ public class GestorDAOImpl implements GestorDAO {
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
         {
             stmt.setString( 1, gestor.getSetor());
+            stmt.setInt( 2, gestor.getIdGestor());
             stmt.executeUpdate();
         }catch (Exception e) {
             e.printStackTrace();
