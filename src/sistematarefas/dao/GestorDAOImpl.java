@@ -61,9 +61,9 @@ public class GestorDAOImpl implements GestorDAO {
     @Override
     public Gestor buscarPorCodigo (int idGestor) {
         String sql = "SELECT g.id_gestor, g.setor, g.id_funcionario, u.nome, u.email, u.telefone, u.data_cadastro, u.id_endereco, u.ativo, u.id_departamento, u.id_usuario, f.salario" +
-                     "FROM gestor g " +
+                     " FROM gestor g " +
                     "INNER JOIN funcionario f ON g.id_funcionario = f.id_funcionario" +
-                    "INNER JOIN usuario u ON f.id_usuario = u.id_usuario " +
+                    " INNER JOIN usuario u ON f.id_usuario = u.id_usuario " +
                     "WHERE g.id_gestor = ?";
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setInt(1, idGestor);
@@ -97,9 +97,9 @@ public class GestorDAOImpl implements GestorDAO {
     @Override
     public List<Gestor> buscarTodos()
     {
-        String sql = "SELECT g.id_gestor, g.setor, g.id_funcionario, u.nome, u.email, u.telefone, u.data_cadastro, u.id_endereco, u.ativo, u.id_departamento, u.id_usuario, f.salario" +
+        String sql = "SELECT g.id_gestor, g.setor, g.id_funcionario, u.nome, u.email, u.telefone, u.data_cadastro, u.id_endereco, u.ativo, u.id_departamento, u.id_usuario, f.salario " +
                 " FROM gestor g " +
-                "INNER JOIN funcionario f ON g.id_funcionario = f.id_funcionario" +
+                " INNER JOIN funcionario f ON g.id_funcionario = f.id_funcionario " +
                 " INNER JOIN usuario u ON f.id_usuario = u.id_usuario ";
         try(Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
         {

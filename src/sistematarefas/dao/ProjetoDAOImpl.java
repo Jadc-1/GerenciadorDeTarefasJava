@@ -102,11 +102,7 @@ public class ProjetoDAOImpl implements ProjetoDAO {
 
     @Override
     public List<Projeto> buscarTodos() {
-        String sql = "SELECT p.codigo_projeto, p.nome, p.descricao, p.data_inicio, p.data_termino, p.status_projeto, p.prioridade, id_gestor, u.nome AS nome_gestor" +
-                "FROM projeto p" +
-                "JOIN gestor g on p.id_gestor = g.id_gestor" +
-                "JOIN funcionario f on g.id_funcionario = f.id_funcionario" +
-                "JOIN usuario u on f.id_usuario = u.id_usuario";
+        String sql = "SELECT codigo_projeto, nome, descricao, data_termino, status_projeto, prioridade, id_gestor FROM projeto";
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
         {
             List<Projeto> projetos = new ArrayList<>();

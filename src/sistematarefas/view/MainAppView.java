@@ -10,6 +10,7 @@ public class MainAppView extends JFrame {
 
     private JPanel contentPanel; //Conteúdo principal
     private JPanel menuSelecionado;
+    private JPanel projectPanel;
 
 
     public MainAppView(){
@@ -23,7 +24,7 @@ public class MainAppView extends JFrame {
 
     public void initComponents() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Gerenciador de Tarefas");
+        setTitle("Gerenciador de Projetos");
         setSize(new Dimension(1280, 720));
 
         GridLayout layout = new GridLayout(1, 2);
@@ -124,7 +125,7 @@ public class MainAppView extends JFrame {
         header.setBackground(new Color(25, 35, 45));
         header.setBounds(0,0, 1280, 45);
 
-        JLabel titulo = new JLabel("Gerenciador de Tarefas");
+        JLabel titulo = new JLabel("Gerenciador de Projetos");
         JLabel appLogo = new JLabel(new ImageIcon("src/sistematarefas/view/img/app_logo.png"));
 
         appLogo.setBounds(10, 10, 45, 45);
@@ -144,10 +145,12 @@ public class MainAppView extends JFrame {
 
         switch (nomeTela) {
             case "Projetos":
-                contentPanel.add(new ProjetosView());
+                ProjetosView projetosView = new ProjetosView();
+                contentPanel.add(projetosView.getProjetoPanel(), BorderLayout.CENTER);
                 break;
             case "Funcionários":
-                contentPanel.add(new FuncionariosView());
+                FuncionariosView funcionariosView = new FuncionariosView();
+                contentPanel.add(funcionariosView.getFuncionariosPanel(), BorderLayout.CENTER);
                 break;
             case "Gestores":
                 contentPanel.add(new GestoresView());

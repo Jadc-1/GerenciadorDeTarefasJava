@@ -1,10 +1,8 @@
 package sistematarefas.dao;
 
 import sistematarefas.model.Funcionario;
-import sistematarefas.model.Usuario;
 import sistematarefas.utils.Database;
 
-import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,17 +11,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FuncionarioDAOImpl implements FuncionarioDAO{
+
     @Override
     public void salvar(Funcionario funcionario) throws SQLException{
         UsuarioDAO usuarioDAO = new UsuarioDAOImpl(); // Como funcionário Herda de usuário é possível acessar suas funções
-        usuarioDAO.salvar(funcionario); // Herança de usuário, para criar precisarei salvar na tabela usuario e depois salvar na tabela funcionario
 
-        String sql = "INSERT INTO funcionario (salario, id_usuario, id_departamento) VALUES (?,?,?)";
-        try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
+        int idUsuario = usuarioDAO.salvar(funcionario); // pega o id do usuario e salva na tabela
+        funcionario.setIdUsuario(idUsuario);
+
+        String sql = "INSERT INTO funcionario (salario, id_usuario) VALUES (?,?)";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS))
         {
             stmt.setDouble(1, funcionario.getSalario());
             stmt.setInt(2, funcionario.getIdUsuario());
-            stmt.setInt(3, funcionario.getDepartamento().getIdDepartamento());
+            stmt.executeUpdate();
+
+            // obtem o id gerado pela tabela
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    funcionario.setIdFuncionario(generatedKeys.getInt(1));
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -34,13 +43,12 @@ public class FuncionarioDAOImpl implements FuncionarioDAO{
         UsuarioDAO usuarioDAO = new UsuarioDAOImpl();
         usuarioDAO.atualizar(funcionario);
 
-        String sql = "UPDATE funcionario SET salario = ?, id_usuario = ?, id_departamento = ? WHERE id_funcionario = ?";
+        String sql = "UPDATE funcionario SET salario = ?, id_usuario = ? WHERE id_funcionario = ?";
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql))
         {
             stmt.setDouble(1, funcionario.getSalario());
             stmt.setInt(2, funcionario.getIdUsuario());
-            stmt.setInt(3, funcionario.getDepartamento().getIdDepartamento());
-            stmt.setInt(4, funcionario.getIdFuncionario());
+            stmt.setInt(3, funcionario.getIdFuncionario()); // Changed from 4 to 3
             stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,7 +83,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO{
 
             if(rs.next())
             {
-                return new Funcionario(rs.getInt("id_funcionario"),rs.getDouble("salario"), rs.getInt("id_usuario"), rs.getString("nome"), rs.getString("email"), rs.getString("telefone"), rs.getDate("data_cadastro").toLocalDate(), new EnderecoDAOImpl().buscarPorCodigo(rs.getInt("id_endereco")), rs.getBoolean("ativo"), new DepartamentoDAOImpl().buscarPorCodigo(rs.getInt("id_departamento")));
+                return new Funcionario(rs.getInt("id_funcionario"),rs.getDouble("salario"), rs.getInt("id_usuario"), rs.getString("nome"), rs.getString("email"), rs.getString("telefone"), new EnderecoDAOImpl().buscarPorCodigo(rs.getInt("id_endereco")), rs.getBoolean("ativo"), new DepartamentoDAOImpl().buscarPorCodigo(rs.getInt("id_departamento")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,7 +103,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO{
             ResultSet rs = stmt.executeQuery();
             while(rs.next())
             {
-                Funcionario funcionario = new Funcionario(rs.getInt("id_funcionario"), rs.getDouble("salario"), rs.getInt("id_usuario"), rs.getString("nome"), rs.getString("email"), rs.getString("telefone"), rs.getDate("data_cadastro").toLocalDate(), new EnderecoDAOImpl().buscarPorCodigo(rs.getInt("id_endereco")), rs.getBoolean("ativo"), new DepartamentoDAOImpl().buscarPorCodigo(rs.getInt("id_departamento")));
+                Funcionario funcionario = new Funcionario(rs.getInt("id_funcionario"), rs.getDouble("salario"), rs.getInt("id_usuario"), rs.getString("nome"), rs.getString("email"), rs.getString("telefone"), new EnderecoDAOImpl().buscarPorCodigo(rs.getInt("id_endereco")), rs.getBoolean("ativo"), new DepartamentoDAOImpl().buscarPorCodigo(rs.getInt("id_departamento")));
                 funcionarios.add(funcionario);
             }
             return funcionarios;

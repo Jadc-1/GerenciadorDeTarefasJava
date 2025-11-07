@@ -79,7 +79,7 @@ public class DepartamentoDAOImpl implements DepartamentoDAO{
             ResultSet rs = stmt.executeQuery();
             while(rs.next())
             {
-                Departamento departamento = new Departamento(rs.getInt("id_departamento"), rs.getString("nomeDepartamento"), rs.getBoolean("ativo"));
+                Departamento departamento = new Departamento(rs.getInt("id_departamento"), rs.getString("nome_departamento"), rs.getBoolean("ativo"));
                 departamentos.add(departamento);
             }
             return departamentos;

@@ -13,7 +13,7 @@ public class Usuario {
     private boolean ativo;
     private Departamento departamento;
 
-    public Usuario(int idUsuario, String nome, String email, String telefone, LocalDate dataCadastro, Endereco endereco, boolean ativo, Departamento departamento)
+    public Usuario(int idUsuario, String nome, String email, String telefone, Endereco endereco, boolean ativo, Departamento departamento)
     {
         this.idUsuario = idUsuario;
         this.nome = nome;

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="sistematarefas.view.FuncionariosView">
+  <grid id="27dc6" binding="jpFuncionarios" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="25" left="15" bottom="15" right="30"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties>
+      <background color="-15783379"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="aecc2" class="javax.swing.JLabel" binding="txtTitulo">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <enabled value="true"/>
+          <font name="Consolas" size="24" style="1"/>
+          <text value="Funcionários"/>
+        </properties>
+      </component>
+      <component id="75f8b" class="javax.swing.JButton" binding="btnAdicionarFuncionario">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-14312159"/>
+          <text value="Adicionar Funcionário"/>
+        </properties>
+      </component>
+      <scrollpane id="a62bb" binding="spFuncionarios">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="aa06" class="javax.swing.JTable" binding="tbFuncionarios">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
+      </scrollpane>
+    </children>
+  </grid>
+</form>
